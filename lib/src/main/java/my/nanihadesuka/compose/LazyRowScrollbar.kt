@@ -1,6 +1,7 @@
 package my.nanihadesuka.compose
 
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
@@ -50,5 +51,6 @@ fun InternalLazyRowScrollbar(
         modifier = modifier,
         settings = settings,
         indicatorContent = indicatorContent,
+        interactionSource = state.interactionSource as? MutableInteractionSource
     )
 }

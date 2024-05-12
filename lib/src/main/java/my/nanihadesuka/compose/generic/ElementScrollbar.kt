@@ -3,6 +3,7 @@ package my.nanihadesuka.compose.generic
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,6 +20,7 @@ internal fun <IndicatorValue> ElementScrollbar(
     modifier: Modifier,
     settings: ScrollbarSettings,
     indicatorContent: (@Composable (indicatorValue: IndicatorValue, isThumbSelected: Boolean) -> Unit)?,
+    interactionSource: MutableInteractionSource? = remember { MutableInteractionSource() },
 ) {
     val layoutSettings = remember(settings) {
         ScrollbarLayoutSettings(
@@ -61,6 +63,7 @@ internal fun <IndicatorValue> ElementScrollbar(
                 },
                 orientation = orientation,
                 enabled = settings.selectionMode != ScrollbarSelectionMode.Disabled,
+                interactionSource = interactionSource,
                 startDragImmediately = true,
                 onDragStarted = { offsetPixel ->
                     stateController.onDragStarted(

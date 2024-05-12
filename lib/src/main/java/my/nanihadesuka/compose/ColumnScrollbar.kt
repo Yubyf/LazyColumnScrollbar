@@ -2,6 +2,7 @@ package my.nanihadesuka.compose
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -57,5 +58,6 @@ fun InternalColumnScrollbar(
         modifier = modifier,
         settings = settings,
         indicatorContent = indicatorContent,
+        interactionSource = state.interactionSource as? MutableInteractionSource,
     )
 }

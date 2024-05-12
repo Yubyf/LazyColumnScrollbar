@@ -1,6 +1,7 @@
 package my.nanihadesuka.compose
 
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable
@@ -50,6 +51,7 @@ fun InternalLazyVerticalGridScrollbar(
         stateController = controller,
         modifier = modifier,
         settings = settings,
-        indicatorContent = indicatorContent
+        indicatorContent = indicatorContent,
+        interactionSource = state.interactionSource as? MutableInteractionSource
     )
 }
