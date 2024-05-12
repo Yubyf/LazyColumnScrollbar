@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,6 +59,12 @@ internal fun rememberScrollStateController(
         }
     }
 
+    val canScroll by remember(state) {
+        derivedStateOf {
+            state.canScrollBackward || state.canScrollForward
+        }
+    }
+
     fun offsetCorrection(top: Float): Float {
         val topRealMax = 1f
         val topMax = (1f - thumbSizeNormalized.value).coerceIn(0f, 1f)
@@ -74,7 +81,7 @@ internal fun rememberScrollStateController(
 
     val thumbIsInAction = remember {
         derivedStateOf {
-            state.isScrollInProgress || isSelected.value || alwaysShowScrollBarUpdated.value
+            canScroll && (state.isScrollInProgress || isSelected.value || alwaysShowScrollBarUpdated.value)
         }
     }
 

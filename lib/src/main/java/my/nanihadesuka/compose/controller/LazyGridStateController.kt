@@ -8,6 +8,7 @@ import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -74,6 +75,12 @@ internal fun rememberLazyGridStateController(
             val firstVisibleIndex = state.layoutInfo.visibleItemsInfo.firstOrNull()?.index
                 ?: return@derivedStateOf false
             realIndex != firstVisibleIndex
+        }
+    }
+
+    val canScroll by remember(state) {
+        derivedStateOf {
+            state.canScrollBackward || state.canScrollForward
         }
     }
 
@@ -151,7 +158,7 @@ internal fun rememberLazyGridStateController(
 
     val thumbIsInAction = remember {
         derivedStateOf {
-            state.isScrollInProgress || isSelected.value || alwaysShowScrollBarUpdated.value
+            canScroll && (state.isScrollInProgress || isSelected.value || alwaysShowScrollBarUpdated.value)
         }
     }
 
